@@ -81,7 +81,7 @@ def extract_incident_data(pdf_file):
 def setup_incident_database():
 
     print("Setting up SQLite database...")
-    resources_dir = os.path.join("/Users/manojvirinchichitta/DE/cis6930fa24-project0", 'resources')
+    resources_dir = os.path.join("/Users/manojvirinchichitta/DE/cis6930fa24-project0/", 'resources')
     if not os.path.exists(resources_dir):
         os.makedirs(resources_dir)
     
