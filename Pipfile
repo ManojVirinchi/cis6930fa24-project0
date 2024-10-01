@@ -6,7 +6,6 @@ name = "pypi"
 [packages]
 pypdf = "*"
 requests = "*"
-pypdf2 = "*"
 pytest = "*"
 
 [dev-packages]
@@ -14,3 +13,6 @@ pytest = "*"
 
 [requires]
 python_version = "3.11"
+
+[scripts]
+main = "python main.py"
