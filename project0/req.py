@@ -64,7 +64,7 @@ def setup_incident_database():
     if not os.path.exists(resources_dir):
         os.makedirs(resources_dir)
     
-    db_path = os.path.join(resources_dir, 'incidents.db')
+    db_path = os.path.join(resources_dir, 'normanpd.db')
     connection = sqlite3.connect(db_path)
     cursor = connection.cursor()
     
