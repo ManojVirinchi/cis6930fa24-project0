@@ -3,7 +3,7 @@ import sqlite3
 import re
 from io import BytesIO
 import os
-from PyPDF2 import PdfReader
+from pypdf import PdfReader
 
 # Function to download the PDF from a given URL
 def fetch_pdf_from_url(pdf_url):

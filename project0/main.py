@@ -2,7 +2,7 @@ import requests
 import sqlite3
 import re
 from io import BytesIO
-from PyPDF2 import PdfReader
+from pypdf import PdfReader
 from req import setup_incident_database, populate_database_with_data, fetch_pdf_from_url, extract_incident_data, summarize_incident_natures
 import argparse
 
