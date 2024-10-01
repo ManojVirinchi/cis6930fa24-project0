@@ -120,6 +120,6 @@ def summarize_incident_natures(connection):
     
     print(f"Total unique incident natures: {len(results)}")
     for nature, count in results:
-        print(f"{nature} | {count}")
+        print(f"{nature}|{count}")
 
 
