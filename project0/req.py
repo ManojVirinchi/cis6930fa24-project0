@@ -30,8 +30,6 @@ def extract_incident_data(pdf_file):
     incident_number_pattern = r'(2024-\d+)'
     location_pattern = r'((?:[A-Z\d]+[\-\.\; \/\,]*)+)'
     nature_pattern = r'((?:\b[A-Za-z]+\b(?:[\/\- ]*)?)+)'
-
-
     incident_ori_pattern = r'(OK\d+|EMSSTAT|14005)'
 
     full_incident_pattern = f"{date_time_pattern}\\s+{incident_number_pattern}\\s+{location_pattern}\\s+{nature_pattern}\\s+{incident_ori_pattern}"
