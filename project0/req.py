@@ -29,32 +29,26 @@ def extract_incident_data(pdf_file):
     date_time_pattern = r'(\d{1,2}/\d{1,2}/\d{4}\s+\d{1,2}:\d{2})'
     incident_number_pattern = r'(2024-\d+)'
     location_pattern = r'((?:[A-Z\d]+[\-\.\; \/\,]*)+)'
-    nature_pattern = r'([A-Za-z]+(?: [A-Za-z]+)*)'
+    nature_pattern = r'(MVA(?: [a-zA-Z]+)*|(?:\b[A-Za-z]+\b(?:[\/\- ]*)?)+)'
+
     incident_ori_pattern = r'(OK\d+|EMSSTAT|14005)'
 
-    # Combine all patterns into one full pattern
     full_incident_pattern = f"{date_time_pattern}\\s+{incident_number_pattern}\\s+{location_pattern}\\s+{nature_pattern}\\s+{incident_ori_pattern}"
     
     # Extract and process text from each page of the PDF
     for page_number, page in enumerate(pdf_reader.pages, start=1):
         print(f"Extracting text from page {page_number}...")
         page_text = page.extract_text()
-        
+    
+    
+
         # Find all incidents matching the regex pattern
         incidents_on_page = re.findall(full_incident_pattern, page_text)
         print(f"Found {len(incidents_on_page)} incidents on page {page_number}.")
 
-        # Process extracted incidents
+        # Add the extracted data to the records list
         for incident in incidents_on_page:
             date_time, incident_number, location, nature, incident_ori = incident
-
-            # Manually handle "MVA with injuries" and "MVA non injuries"
-            if nature.strip() == "With Injuries":
-                nature = "MVA With Injuries"
-            elif nature.strip() == "Non Injuries":
-                nature = "MVA Non Injuries"
-
-            # Add to records
             incident_records.append({
                 'date_time': date_time.strip(),
                 'incident_number': incident_number.strip(),
@@ -62,12 +56,14 @@ def extract_incident_data(pdf_file):
                 'nature': nature.strip(),
                 'incident_ori': incident_ori.strip()
             })
-
+    
     # Print the total number of rows extracted
     print(f"Extraction complete. Total number of rows extracted: {len(incident_records)}")
     
+    # Optionally print the incident records (already in the original code)
+    print(incident_records)
+    
     return incident_records
-
 
 
 # Function to create an SQLite database and incidents table
