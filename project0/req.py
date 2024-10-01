@@ -56,6 +56,8 @@ def extract_incident_data(pdf_file):
                 nature = "MVA Non Injury"
             elif nature.strip() == "Relationships":
                 nature = "COP Relationships"
+            elif nature.strip() == "Problem Solving":
+                nature = "COP Problem Solving"
             incident_records.append({
                 'date_time': date_time.strip(),
                 'incident_number': incident_number.strip(),
