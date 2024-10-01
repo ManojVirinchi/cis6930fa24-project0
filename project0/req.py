@@ -81,12 +81,13 @@ def extract_incident_data(pdf_file):
 def setup_incident_database():
 
     print("Setting up SQLite database...")
-    resources_dir = os.path.join("/Users/manojvirinchichitta/DE/cis6930fa24-project0/", 'resources')
-    if not os.path.exists(resources_dir):
-        os.makedirs(resources_dir)
+    #resources_dir = os.path.join("/Users/manojvirinchichitta/DE/cis6930fa24-project0/", 'resources')
+    #if not os.path.exists(resources_dir):
+        #os.makedirs(resources_dir)
     
-    db_path = os.path.join(resources_dir, 'normanpd.db')
-    connection = sqlite3.connect(db_path)
+    #db_path = os.path.join(resources_dir, 'normanpd.db')
+    connection = sqlite3.connect(os.path.abspath('resources/normanpd.db'))
+
     cursor = connection.cursor()
     
     print("Dropping existing incidents table if it exists...")
