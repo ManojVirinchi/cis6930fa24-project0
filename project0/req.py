@@ -58,6 +58,8 @@ def extract_incident_data(pdf_file):
                 nature = "COP Relationships"
             elif nature.strip() == "Problem Solving":
                 nature = "COP Problem Solving"
+            elif nature.strip() == "Call Nature Unknown":
+                nature = "911 Call Nature Unknown"
             incident_records.append({
                 'date_time': date_time.strip(),
                 'incident_number': incident_number.strip(),
