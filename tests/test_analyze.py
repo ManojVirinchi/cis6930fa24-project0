@@ -20,7 +20,7 @@ def test_analyze_nature(mock_stdout):
     
     # Assert the output
     output = mock_stdout.getvalue().strip()
-    assert "THEFT | 2" in output
-    assert "ASSAULT | 1" in output
+    assert "THEFT|2" in output
+    assert "ASSAULT|1" in output
     
     conn.close()
