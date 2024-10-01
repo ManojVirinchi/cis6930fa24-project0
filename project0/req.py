@@ -52,8 +52,8 @@ def extract_incident_data(pdf_file):
             date_time, incident_number, location, nature, incident_ori = incident
             if nature.strip() == "With Injuries":
                 nature = "MVA With Injuries"
-            elif nature.strip() == "Non Injuries":
-                nature = "MVA Non Injuries"
+            elif nature.strip() == "Non Injury":
+                nature = "MVA Non Injury"
             incident_records.append({
                 'date_time': date_time.strip(),
                 'incident_number': incident_number.strip(),
