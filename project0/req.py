@@ -78,7 +78,7 @@ def extract_incident_data(pdf_file):
             combined_location_nature = f'{original_location.strip()} {original_nature.strip()}'
             #print(f"\n>>> Combined location and nature: '{combined_location_nature}' <<<\n")
             
-            special_words = [' MVA ', ' COP ', ' 911 ']
+            special_words = [' MVA ', ' COP ', ' 911 ', ' EMS ']
             location, nature = smart_split(combined_location_nature, special_words, original_location, original_nature)
 
             #print(f"Location after split: '{location}'")
@@ -97,8 +97,8 @@ def extract_incident_data(pdf_file):
                 'nature': nature,
                 'incident_ori': incident_ori.strip()
             })
-        #else:
-            #print("log: "+record)
+        else:
+            print("log: "+record)
 
     #print(f"Extraction complete. Total number of rows extracted: {len(incident_records)}")
     return incident_records
