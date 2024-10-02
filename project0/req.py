@@ -62,9 +62,9 @@ def extract_incident_data(pdf_file):
 
     date_time_pattern = r'(\d{1,2}/\d{1,2}/\d{4}\s+\d{1,2}:\d{2})'
     incident_number_pattern = r'(2024-\d+)'
-    location_pattern = r'((?:[A-Z\d]+[\-\.\; \/\,\<\>\#\&]*)+)' 
+    location_pattern = r'((?:[A-Z\d]+[\-\.\; \/\,\<\>\#\&\']*)+)' 
     nature_pattern = r'((?:\b[A-Za-z]+\b(?:[\/\- ]*)?)+)' 
-    incident_ori_pattern = r'(OK\d+|EMSSTAT|14005|14009)'
+    incident_ori_pattern = r'(OK\d+|EMSSTAT|14005|14009|COMMAND)'
 
     full_incident_pattern = f"{date_time_pattern}\\s+{incident_number_pattern}\\s*{location_pattern}\\s+{nature_pattern}\\s+{incident_ori_pattern}"
 
@@ -97,8 +97,8 @@ def extract_incident_data(pdf_file):
                 'nature': nature,
                 'incident_ori': incident_ori.strip()
             })
-        #else:
-            #print("log: "+record)
+        else:
+            print("log: "+record)
 
     #print(f"Extraction complete. Total number of rows extracted: {len(incident_records)}")
     return incident_records
