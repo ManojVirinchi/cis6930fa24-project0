@@ -21,7 +21,7 @@ def extract_pdf_data(pdf_reader):
     complete_incident_records = []
     incomplete_row_buffer = ''
     header_keywords = ('Date / Time', 'Daily Incident Summary (Public)')
-    incident_ori_endings = ('EMSSTAT', 'OK0140200', '14005', '14009')
+    incident_ori_endings = ('EMSSTAT', 'OK0140200', '14005', '14009' 'COMMAND')
 
     def is_header_row(row):
         return any(row.startswith(keyword) for keyword in header_keywords)
@@ -62,7 +62,7 @@ def extract_incident_data(pdf_file):
 
     date_time_pattern = r'(\d{1,2}/\d{1,2}/\d{4}\s+\d{1,2}:\d{2})'
     incident_number_pattern = r'(2024-\d+)'
-    location_pattern = r'((?:[A-Z\d]+[\-\.\; \/\,\<\>]*)+)' 
+    location_pattern = r'((?:[A-Z\d]+[\-\.\; \/\,\<\>\#\&]*)+)' 
     nature_pattern = r'((?:\b[A-Za-z]+\b(?:[\/\- ]*)?)+)' 
     incident_ori_pattern = r'(OK\d+|EMSSTAT|14005)'
 
