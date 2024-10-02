@@ -21,7 +21,7 @@ def extract_pdf_data(pdf_reader):
     complete_incident_records = []
     incomplete_row_buffer = ''
     header_keywords = ('Date / Time', 'Daily Incident Summary (Public)')
-    incident_ori_endings = ('EMSSTAT', 'OK0140200', '14005', '14009' 'COMMAND')
+    incident_ori_endings = ('EMSSTAT', 'OK0140200', '14005', '14009','COMMAND')
 
     def is_header_row(row):
         return any(row.startswith(keyword) for keyword in header_keywords)
@@ -42,13 +42,13 @@ def extract_pdf_data(pdf_reader):
                 if incomplete_row_buffer:
                     current_row = f"{incomplete_row_buffer} {current_row}"
                     incomplete_row_buffer = ''
-                current_row = re.sub(r"NORMAN POLICE DEPARTMENT", "", current_row)
+                #current_row = re.sub(r"NORMAN POLICE DEPARTMENT", "", current_row)
                 complete_incident_records.append(current_row.strip())
             else:
                 incomplete_row_buffer = f"{incomplete_row_buffer} {current_row.strip()}".strip()
 
     if incomplete_row_buffer:
-        incomplete_row_buffer = re.sub(r"NORMAN POLICE DEPARTMENT", "", incomplete_row_buffer)
+        #incomplete_row_buffer = re.sub(r"NORMAN POLICE DEPARTMENT", "", incomplete_row_buffer)
         complete_incident_records.append(incomplete_row_buffer)
 
     return complete_incident_records
@@ -64,7 +64,7 @@ def extract_incident_data(pdf_file):
     incident_number_pattern = r'(2024-\d+)'
     location_pattern = r'((?:[A-Z\d]+[\-\.\; \/\,\<\>\#\&]*)+)' 
     nature_pattern = r'((?:\b[A-Za-z]+\b(?:[\/\- ]*)?)+)' 
-    incident_ori_pattern = r'(OK\d+|EMSSTAT|14005)'
+    incident_ori_pattern = r'(OK\d+|EMSSTAT|14005|14009)'
 
     full_incident_pattern = f"{date_time_pattern}\\s+{incident_number_pattern}\\s*{location_pattern}\\s+{nature_pattern}\\s+{incident_ori_pattern}"
 
@@ -97,8 +97,8 @@ def extract_incident_data(pdf_file):
                 'nature': nature,
                 'incident_ori': incident_ori.strip()
             })
-        #else:
-            #print("log: "+record)
+        else:
+            print("log: "+record)
 
     #print(f"Extraction complete. Total number of rows extracted: {len(incident_records)}")
     return incident_records
