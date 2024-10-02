@@ -76,12 +76,6 @@ def extract_incident_data(pdf_file):
 
             #print(f"Location after split: '{location}'")
             #print(f"Nature after split: '{nature}'")
-            matchN = re.match(r'([A-Z]+)([A-Z][a-z].*)', nature)
-            if matchN:
-                prev, nxt = matchN.groups()
-                nature = nxt.strip()
-                location += " " + prev
-            
 
             incident_records.append({
                 'date_time': date_time.strip(),
@@ -90,8 +84,8 @@ def extract_incident_data(pdf_file):
                 'nature': nature,
                 'incident_ori': incident_ori.strip()
             })
-        #else:
-            #print("log: "+record)
+        else:
+            print("log: "+record)
 
     #print(f"Extraction complete. Total number of rows extracted: {len(incident_records)}")
     return incident_records
