@@ -20,22 +20,22 @@ def main():
         url = args.incidents
         
         try:
-            print("Downloading PDF...")
+            #print("Downloading PDF...")
             pdf_file = fetch_pdf_from_url(url)
-            print("PDF downloaded successfully.")
+            #print("PDF downloaded successfully.")
             
-            print("Extracting data...")
+            #print("Extracting data...")
             data = extract_incident_data(pdf_file)
             
-            print(f"Extracted {len(data)} incidents from the PDF.")
+            #print(f"Extracted {len(data)} incidents from the PDF.")
             
-            print("Creating database...")
+            #print("Creating database...")
             conn = setup_incident_database()
             
-            print("Inserting data into database...")
+            #print("Inserting data into database...")
             populate_database_with_data(conn, data)
             
-            print("\nNature occurrences:")
+            #print("\nNature occurrences:")
             summarize_incident_natures(conn)
             
             conn.close()
