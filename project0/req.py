@@ -33,18 +33,22 @@ def extract_pdf_data(pdf_reader):
         text_rows = page.extract_text().split('\n')
 
         for current_row in text_rows:
+            if "NORMAN POLICE DEPARTMENT" in current_row:
+                 current_row=re.sub(r"NORMAN POLICE DEPARTMENT", "", current_row)
+            
             if is_header_row(current_row):
                 continue
-
             if is_complete_incident(current_row):
                 if incomplete_row_buffer:
                     current_row = f"{incomplete_row_buffer} {current_row}"
                     incomplete_row_buffer = ''
+                current_row = re.sub(r"NORMAN POLICE DEPARTMENT", "", current_row)
                 complete_incident_records.append(current_row.strip())
             else:
                 incomplete_row_buffer = f"{incomplete_row_buffer} {current_row.strip()}".strip()
 
     if incomplete_row_buffer:
+        incomplete_row_buffer = re.sub(r"NORMAN POLICE DEPARTMENT", "", incomplete_row_buffer)
         complete_incident_records.append(incomplete_row_buffer)
 
     return complete_incident_records
@@ -65,6 +69,9 @@ def extract_incident_data(pdf_file):
     full_incident_pattern = f"{date_time_pattern}\\s+{incident_number_pattern}\\s*{location_pattern}\\s+{nature_pattern}\\s+{incident_ori_pattern}"
 
     for record in complete_incident_records:
+
+        # record.replace('NORMAN POLICE DEPARTMENT', '')
+        print(record)
         match = re.match(full_incident_pattern, record)
         if match:
             date_time, incident_number, original_location, original_nature, incident_ori = match.groups()
