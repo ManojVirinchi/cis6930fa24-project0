@@ -71,7 +71,7 @@ def extract_incident_data(pdf_file):
     for record in complete_incident_records:
 
         # record.replace('NORMAN POLICE DEPARTMENT', '')
-        print(record)
+        #print(record)
         match = re.match(full_incident_pattern, record)
         if match:
             date_time, incident_number, original_location, original_nature, incident_ori = match.groups()
