@@ -97,8 +97,8 @@ def extract_incident_data(pdf_file):
                 'nature': nature,
                 'incident_ori': incident_ori.strip()
             })
-        else:
-            print("log: "+record)
+        #else:
+            #print("log: "+record)
 
     #print(f"Extraction complete. Total number of rows extracted: {len(incident_records)}")
     return incident_records
