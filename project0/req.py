@@ -58,7 +58,7 @@ def extract_incident_data(pdf_file):
 
     date_time_pattern = r'(\d{1,2}/\d{1,2}/\d{4}\s+\d{1,2}:\d{2})'
     incident_number_pattern = r'(2024-\d+)'
-    location_pattern = r'((?:[A-Z\d]+[\-\.\; \/\,]*)+)' 
+    location_pattern = r'((?:[A-Z\d]+[\-\.\; \/\,\<\>]*)+)' 
     nature_pattern = r'((?:\b[A-Za-z]+\b(?:[\/\- ]*)?)+)' 
     incident_ori_pattern = r'(OK\d+|EMSSTAT|14005)'
 
@@ -71,7 +71,7 @@ def extract_incident_data(pdf_file):
             combined_location_nature = f'{original_location.strip()} {original_nature.strip()}'
             #print(f"\n>>> Combined location and nature: '{combined_location_nature}' <<<\n")
             
-            special_words = [' MVA', ' COP', ' 911']
+            special_words = [' MVA ', ' COP ', ' 911 ']
             location, nature = smart_split(combined_location_nature, special_words, original_location, original_nature)
 
             #print(f"Location after split: '{location}'")
