@@ -24,51 +24,35 @@ def extract_incident_data(pdf_file):
     for page in pdf_reader.pages:
         text = page.extract_text(extraction_mode="layout")
         lines = text.split('\n')
-
+        
         for line in lines:
-            #print(line)
-            # Skip header lines and empty lines
-            if line.strip().startswith("Date / Time") or not line.strip():
-                continue
-
-            # Remove "NORMAN POLICE DEPARTMENT" if present
-            line = line.replace("NORMAN POLICE DEPARTMENT", "").strip()
-
-            # Split the line into components
-            pattern = r'\s{2,}'
-            parts = re.split(pattern,line)
-            #print(parts)
-
-            # Check if we have enough parts for a valid incident record
-            if len(parts) != 5:
-                continue
-            else: 
-                incident_records.append({
-                'date_time': parts[0],
-                'incident_number': parts[1],
-                'location': parts[2],
-                'nature': parts[3],
-                'incident_ori': parts[4]
-            })
-    
-    #print(len(incident_records))
+            if is_valid_incident_line(line):
+                cleaned_line = clean_line(line)
+                parts = split_line(cleaned_line)
                 
-    
+                if len(parts) == 5:
+                    incident_records.append(create_incident_dict(parts))
 
+    #print(f"Total incidents extracted: {len(incident_records)}")
     return incident_records
 
-def smart_split(combined_string, special_words, original_location, original_nature):
-    indices = [combined_string.find(word) for word in special_words if word in combined_string]
-    
-    if indices:
-        split_index = min(indices)
-        location = combined_string[:split_index].strip()
-        nature = combined_string[split_index:].strip()
-        return location, nature
-    else:
-        return original_location.strip(), original_nature.strip()
+def is_valid_incident_line(line):
+    return line.strip() and not line.strip().startswith("Date / Time")
 
+def clean_line(line):
+    return line.replace("NORMAN POLICE DEPARTMENT", "").strip()
 
+def split_line(line):
+    return re.split(r'\s{2,}', line)
+
+def create_incident_dict(parts):
+    return {
+        'date_time': parts[0],
+        'incident_number': parts[1],
+        'location': parts[2],
+        'nature': parts[3],
+        'incident_ori': parts[4]
+    }
 # Function to create an SQLite database and incidents table
 def setup_incident_database():
     #print("Setting up SQLite database...")
