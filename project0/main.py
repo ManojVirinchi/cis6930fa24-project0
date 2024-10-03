@@ -7,15 +7,11 @@ from req import setup_incident_database, populate_database_with_data, fetch_pdf_
 import argparse
 
 def main():
-    # Set up argument parser
+    
     parser = argparse.ArgumentParser(description="Process incident report PDF URL.")
-    
-    # Add --incidents as an optional argument
     parser.add_argument('--incidents', type=str, help="URL of the PDF file to process")
-    
     args = parser.parse_args()
 
-    # Check if --incidents was provided
     if args.incidents:
         url = args.incidents
         

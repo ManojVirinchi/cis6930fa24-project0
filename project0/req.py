@@ -16,7 +16,7 @@ def fetch_pdf_from_url(pdf_url):
     else:
         error_message = f"Failed to download PDF. Status code: {response.status_code}"
         raise Exception(error_message)
-
+#function to extract data from pdf file 
 def extract_incident_data(pdf_file):
     pdf_reader = PdfReader(pdf_file)
     incident_records = []
