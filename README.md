@@ -19,7 +19,7 @@ This Python script is designed to process police incident reports from a specifi
   - `sqlite3` (included with Python)  
   - `re` (regular expressions, included with Python)  
   - `io` (included with Python)  
-  - `PyPDF2`
+  - `PyPDF`
 
 ## Installation Instructions
 
@@ -31,9 +31,9 @@ This Python script is designed to process police incident reports from a specifi
       ```
 
    2. **Install Required Libraries:**  
-      Navigate to your project directory and run the following command to install `requests` and `PyPDF2`:
+      Navigate to your project directory and run the following command to install `requests` and `PyPDF`:
       ```bash
-      pipenv install requests PyPDF2
+      pipenv install requests PyPDF
       ```
 
       To activate the virtual environment created by `pipenv`, run:
@@ -78,11 +78,13 @@ This Python script is designed to process police incident reports from a specifi
     - A `BytesIO` object containing the PDF data.
 
 - **`extract_incident_data(pdf_file)`**  
-  - Extracts incident data from the PDF content using regex patterns.
+  - Extracts incident data from the PDF content using PDF Reader and regex pattern.
+  - It uses some helper functions to split the data and also handle few edge cases.
   - **Parameters:**  
     - `pdf_file`: The PDF file to extract data from (as a `BytesIO` object).
   - **Returns:**  
     - A list of dictionaries containing the extracted details (date/time, incident number, location, nature, ORI).
+
 
 - **`setup_incident_database()`**  
   - Sets up an SQLite database to store incident data, creating a table named `incidents` and dropping any existing table with the same name.
@@ -121,7 +123,7 @@ This Python script is designed to process police incident reports from a specifi
   - Locations may contain uppercase letters, numbers, and specific punctuation (such as hyphens, periods, semicolons, spaces, and commas).
   - Nature descriptions are assumed to be free of special characters.
   - Words may be separated by spaces or slashes to indicate multiple incident types (e.g., "Theft / Burglary").
-  - Incidents are not formatted in a way that disrupts regex matching, such as being split across multiple lines or pages.
+  - Ignoring the locations that are in multiple lines as we dont need them in our functinality.
 
 - **Bugs:**
   - Should the PDF structure change, the regex patterns may require updating to maintain accuracy in data extraction.
