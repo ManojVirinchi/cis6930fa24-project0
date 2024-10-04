@@ -33,7 +33,7 @@ def extract_incident_data(pdf_file):
                 if len(parts) == 5:
                     incident_records.append(create_incident_dict(parts))
 
-    #print(f"Total incidents extracted: {len(incident_records)}")
+    print(f"Total incidents extracted: {len(incident_records)}")
     return incident_records
 
 def is_valid_incident_line(line):
